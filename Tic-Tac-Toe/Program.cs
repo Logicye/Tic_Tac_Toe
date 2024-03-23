@@ -5,7 +5,7 @@ namespace Tic_Tac_Toe
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             char[,] board = new char[3, 3]
             {
@@ -13,7 +13,6 @@ namespace Tic_Tac_Toe
                 {' ', ' ', ' '},
                 {' ', ' ', ' '}
             };
-            Point[] boardCellPositions;
             char player1 = 'X';
             char player2 = 'O';
             char currentPlayer = player1;
