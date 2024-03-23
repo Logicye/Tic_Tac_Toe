@@ -19,6 +19,7 @@ namespace Tic_Tac_Toe
             currentPlayer = player1;
             Play();
         }
+
         private void Play()
         {
             while (!GameOver())
@@ -27,7 +28,7 @@ namespace Tic_Tac_Toe
                 int col;
                 do
                 {
-                    Draw(board);
+                    Draw();
                     row = GetInput("Enter the row");
                     col = GetInput("Enter the column");
                 } while (board[row, col] != ' ');
@@ -42,7 +43,7 @@ namespace Tic_Tac_Toe
                 }
                 turnCount++;
             }
-            Draw(board);
+            Draw();
             Console.WriteLine("Game Over");
             Console.ReadKey();
         }
@@ -82,19 +83,22 @@ namespace Tic_Tac_Toe
             return false;
         }
 
-        public void Draw(char[,] board)
+        public void Draw()
         {
             Console.Clear();
-            Console.WriteLine(" 123");
+            Console.WriteLine(" |1|2|3|");
+            Console.WriteLine("-+-+-+-+");
             for (int row = 0; row < 3; row++)
             {
-                Console.Write(row + 1);
+                Console.Write((row + 1) + "|");
                 for (int coloumn = 0; coloumn < 3; coloumn++)
                 {
                     Console.Write(board[row, coloumn]);
+                    Console.Write("|");
                 }
-                Console.WriteLine();
+                Console.WriteLine("\n-+-+-+-+");
             }
+            Console.WriteLine();
         }
 
         private int GetInput(string prompt, int upperBound = 3)
