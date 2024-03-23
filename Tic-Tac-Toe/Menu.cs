@@ -9,8 +9,8 @@ namespace Tic_Tac_Toe
 {
     internal class Menu
     {
-        private string title;
-        private List<Option>? options;
+        private readonly string title;
+        private readonly List<Option> options = new ();
         private int selectedIndex;
         public Menu(string title, params KeyValuePair<string, Action>[] optionPairs) 
         {
@@ -20,19 +20,20 @@ namespace Tic_Tac_Toe
             {
                 this.options.Add(new Option(pair.Key, pair.Value));
             }
+            DisplayMenu();
         }
 
         struct Option
         {
-            private string name;
-            private Action action;
+            private readonly string name;
+            private readonly Action action;
             public Option(string name, Action action)
             {
                 this.name = name;
                 this.action = action;
             }
 
-            public string Name() {  return name; }
+            public readonly string Name() {  return name; }
             
             public void Invoke()
             {
@@ -42,13 +43,28 @@ namespace Tic_Tac_Toe
 
         private void DisplayMenu()
         {
+            ConsoleKeyInfo keyInfo;
             do
             {
-                Console.WriteLine();
+                Console.WriteLine(title);
                 foreach (Option option in options)
                 {
                     Console.WriteLine(option.Name());
                 }
+                keyInfo = Console.ReadKey();
+                if (ConsoleKey.D1 == keyInfo.Key)
+                {
+                    options[0].Invoke();
+                }
+                if (ConsoleKey.D2 == keyInfo.Key)
+                {
+                    options[1].Invoke();
+                }
+                if (ConsoleKey.D3 == keyInfo.Key)
+                {
+                    options[2].Invoke();
+                }
+                Console.WriteLine();
             } while (true);
         }
     }
