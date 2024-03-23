@@ -1,34 +1,38 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Tic_Tac_Toe
 {
-    internal class Program
+    internal class Game
     {
-        static void Main()
-        {
-            char[,] board = new char[3, 3]
+        char[,] board = new char[3, 3]
             {
                 {' ', ' ', ' '},
                 {' ', ' ', ' '},
                 {' ', ' ', ' '}
             };
-            char player1 = 'X';
-            char player2 = 'O';
-            char currentPlayer = player1;
-            int turnCount = 0;
+        char player1 = 'X';
+        char player2 = 'O';
+        char currentPlayer;
+        int turnCount = 0;
+        public Game()
+        {
+            currentPlayer = player1;
+            Play();
+        }
 
-            while (!GameOver(board, turnCount))
+        private void Play()
+        {
+            while (!GameOver())
             {
                 int row;
                 int col;
                 do
                 {
-                    Draw(board);
+                    Draw();
                     row = GetInput("Enter the row");
                     col = GetInput("Enter the column");
-                } while (board[row,col] != ' ');
-                board[row,col] = currentPlayer;
+                } while (board[row, col] != ' ');
+                board[row, col] = currentPlayer;
                 if (currentPlayer == player1)
                 {
                     currentPlayer = player2;
@@ -39,17 +43,17 @@ namespace Tic_Tac_Toe
                 }
                 turnCount++;
             }
-            Draw(board);
+            Draw();
             Console.WriteLine("Game Over");
             Console.ReadKey();
         }
 
-        static bool GameOver(char[,] board, int turnCount)
+        private bool GameOver()
         {
             //Checks for row win conditions
             for (int row = 0; row < 3; row++)
             {
-                if (board[row, 0] == board[row, 1] && board[row, 1] == board[row,2] && board[row,0] != ' ')
+                if (board[row, 0] == board[row, 1] && board[row, 1] == board[row, 2] && board[row, 0] != ' ')
                 {
                     return true;
                 }
@@ -63,11 +67,11 @@ namespace Tic_Tac_Toe
                 }
             }
             //Checks for diagonal win conditions
-            if (board[0,0] == board[1,1] && board[1,1] == board[2,2] && board[1,1] != ' ')
+            if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] && board[1, 1] != ' ')
             {
                 return true;
             }
-            else if(board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0] && board[1, 1] != ' ')
+            else if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0] && board[1, 1] != ' ')
             {
                 return true;
             }
@@ -79,22 +83,25 @@ namespace Tic_Tac_Toe
             return false;
         }
 
-        static void Draw(char[,] board)
+        public void Draw()
         {
             Console.Clear();
-            Console.WriteLine(" 123");
+            Console.WriteLine(" |1|2|3|");
+            Console.WriteLine("-+-+-+-+");
             for (int row = 0; row < 3; row++)
             {
-                Console.Write(row + 1);
+                Console.Write((row + 1) + "|");
                 for (int coloumn = 0; coloumn < 3; coloumn++)
                 {
-                    Console.Write(board[row,coloumn]);
+                    Console.Write(board[row, coloumn]);
+                    Console.Write("|");
                 }
-                Console.WriteLine();
+                Console.WriteLine("\n-+-+-+-+");
             }
+            Console.WriteLine();
         }
 
-        static int GetInput(string prompt, int upperBound = 3)
+        private int GetInput(string prompt, int upperBound = 3)
         /// <summary>
         /// Takes a prompt and then writes the prompt
         /// out. Then keeps writing over the readline
@@ -128,7 +135,7 @@ namespace Tic_Tac_Toe
                         Console.Write(' ');
                     }
                 }
-            }            
+            }
         }
     }
 }
