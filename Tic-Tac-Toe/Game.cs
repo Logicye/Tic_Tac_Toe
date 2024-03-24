@@ -10,7 +10,7 @@ namespace Tic_Tac_Toe
         char currentPlayer;
         int turnCount = 0;
         CancellationTokenSource cancellationTokenSource;
-        Thread escapeCheck;
+        Thread gameLoop;
 
         public Game()
         {
@@ -22,9 +22,9 @@ namespace Tic_Tac_Toe
             };
             currentPlayer = player1;
             cancellationTokenSource = new();
-            escapeCheck  = new Thread(() => EscapeGameCheck(cancellationTokenSource.Token));
-            //escapeCheck.Start();
-            Play();
+            gameLoop  = new Thread(() => Play());
+            gameLoop.Start();
+            EscapeGameCheck();
         }
 
         private void Play()
@@ -52,8 +52,10 @@ namespace Tic_Tac_Toe
                 turnCount++;
             }
             UpdateDraw();
+            Console.SetCursorPosition(inputCursorPositionInit.X, inputCursorPositionInit.Y);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(inputCursorPositionInit.X, inputCursorPositionInit.Y);
             Console.WriteLine("Game Over");
-            Console.ReadKey();
         }
 
         private bool GameOver()
@@ -63,7 +65,6 @@ namespace Tic_Tac_Toe
             {
                 if (board[row, 0] == board[row, 1] && board[row, 1] == board[row, 2] && board[row, 0] != ' ')
                 {
-                    cancellationTokenSource.Cancel();
                     return true;
                 }
             }
@@ -72,25 +73,21 @@ namespace Tic_Tac_Toe
             {
                 if (board[0, col] == board[1, col] && board[1, col] == board[2, col] && board[0, col] != ' ')
                 {
-                    cancellationTokenSource.Cancel();
                     return true;
                 }
             }
             //Checks for diagonal win conditions
             if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] && board[1, 1] != ' ')
             {
-                cancellationTokenSource.Cancel();
                 return true;
             }
             else if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0] && board[1, 1] != ' ')
             {
-                cancellationTokenSource.Cancel();
                 return true;
             }
             //Checks for draw condition
             if (turnCount == 9)
             {
-                cancellationTokenSource.Cancel();
                 return true;
             }
             return false;
@@ -180,13 +177,13 @@ namespace Tic_Tac_Toe
             }
         }
 
-        private static void EscapeGameCheck(CancellationToken token)
+        private static void EscapeGameCheck()
         {
             ConsoleKeyInfo keyInfo;
             do
             {
-                keyInfo = Console.ReadKey();
-            } while (keyInfo.Key != ConsoleKey.Escape && !token.IsCancellationRequested);
+                keyInfo = Console.ReadKey(true);
+            } while (keyInfo.Key != ConsoleKey.Escape);
             Menu.Menus.MainMenu();
         }
     }
