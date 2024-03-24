@@ -9,8 +9,6 @@ namespace Tic_Tac_Toe
         readonly char player2 = 'O';
         char currentPlayer;
         int turnCount = 0;
-        CancellationTokenSource cancellationTokenSource;
-        Thread gameLoop;
 
         public Game()
         {
@@ -21,10 +19,7 @@ namespace Tic_Tac_Toe
                 {' ', ' ', ' '}
             };
             currentPlayer = player1;
-            cancellationTokenSource = new();
-            gameLoop  = new Thread(() => Play());
-            gameLoop.Start();
-            EscapeGameCheck();
+            Play();
         }
 
         private void Play()
@@ -175,16 +170,6 @@ namespace Tic_Tac_Toe
                     }
                 }
             }
-        }
-
-        private static void EscapeGameCheck()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                keyInfo = Console.ReadKey(true);
-            } while (keyInfo.Key != ConsoleKey.Escape);
-            Menu.Menus.MainMenu();
         }
     }
 }
