@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tic_Tac_Toe.Game;
+using Tic_Tac_Toe.Games;
 
 namespace Tic_Tac_Toe.Menu
 {
@@ -29,7 +29,7 @@ namespace Tic_Tac_Toe.Menu
         private static Menu MultiPlayerMenu()
         {
             return new("Multiplayer",
-                new KeyValuePair<string, Action>("Local Play", () => new Game.Game()),
+                new KeyValuePair<string, Action>("Local Play", () => new Games.Game()),
                 new KeyValuePair<string, Action>("Online Play", () => OnlinePlayMenu()),
                 new KeyValuePair<string, Action>("Return", () => MainMenu()));
         }
