@@ -1,4 +1,4 @@
-﻿namespace Tic_Tac_Toe
+﻿namespace Tic_Tac_Toe.Menu
 {
     internal class Menu
     {
@@ -8,10 +8,10 @@
         public Menu(string title, params KeyValuePair<string, Action>[] optionPairs)
         {
             this.title = title;
-            this.selectedIndex = 0;
+            selectedIndex = 0;
             foreach (KeyValuePair<string, Action> pair in optionPairs)
             {
-                this.options.Add(new Option(pair.Key, pair.Value));
+                options.Add(new Option(pair.Key, pair.Value));
             }
             Display();
         }
