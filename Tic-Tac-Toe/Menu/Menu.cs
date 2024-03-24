@@ -76,7 +76,7 @@
             ConsoleKeyInfo keyInfo;
             do
             {
-                keyInfo = Console.ReadKey();
+                keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     if (selectedIndex == 0)
