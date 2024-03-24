@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tic_Tac_Toe
+﻿namespace Tic_Tac_Toe
 {
     internal class Menu
     {
         private readonly string title;
-        private readonly List<Option> options = new ();
+        private readonly List<Option> options = new();
         private int selectedIndex;
-        public Menu(string title, params KeyValuePair<string, Action>[] optionPairs) 
+        public Menu(string title, params KeyValuePair<string, Action>[] optionPairs)
         {
             this.title = title;
             this.selectedIndex = 0;
@@ -20,10 +13,10 @@ namespace Tic_Tac_Toe
             {
                 this.options.Add(new Option(pair.Key, pair.Value));
             }
-            DisplayMenu();
+            Display();
         }
 
-        struct Option
+        readonly struct Option
         {
             private readonly string name;
             private readonly Action action;
@@ -33,38 +26,85 @@ namespace Tic_Tac_Toe
                 this.action = action;
             }
 
-            public readonly string Name() {  return name; }
-            
+            public readonly string Name() { return name; }
+
             public void Invoke()
             {
                 action.Invoke();
             }
         }
 
-        private void DisplayMenu()
+        private void Display()
+        {
+            Console.CursorVisible = false;
+            Console.Clear();
+            Console.WriteLine(title);
+            foreach (Option option in options)
+            {
+                if (option.Name() == options[selectedIndex].Name())
+                {
+                    Console.WriteLine(" > " + option.Name());
+                }
+                else
+                {
+                    Console.WriteLine("   " + option.Name());
+                }
+            }
+            MenuInputHandle();
+        }
+
+        private void DisplayUpdate()
+        {
+            int count = 0;
+            foreach (Option option in options)
+            {
+                Console.SetCursorPosition(1, count + 1);
+                if (count == selectedIndex)
+                {
+                    Console.Write(">");
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+                count++;
+            }
+        }
+
+        private void MenuInputHandle()
         {
             ConsoleKeyInfo keyInfo;
             do
             {
-                Console.WriteLine(title);
-                foreach (Option option in options)
-                {
-                    Console.WriteLine(option.Name());
-                }
                 keyInfo = Console.ReadKey();
-                if (ConsoleKey.D1 == keyInfo.Key)
+                if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
-                    options[0].Invoke();
+                    if (selectedIndex == 0)
+                    {
+                        selectedIndex = options.Count - 1;
+                    }
+                    else
+                    {
+                        selectedIndex--;
+                    }
                 }
-                if (ConsoleKey.D2 == keyInfo.Key)
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
-                    options[1].Invoke();
+                    if (selectedIndex == options.Count - 1)
+                    {
+                        selectedIndex = 0;
+                    }
+                    else
+                    {
+                        selectedIndex++;
+                    }
                 }
-                if (ConsoleKey.D3 == keyInfo.Key)
+                else if (keyInfo.Key == ConsoleKey.Enter)
                 {
-                    options[2].Invoke();
+                    options[selectedIndex].Invoke();
+                    break;
                 }
-                Console.WriteLine();
+                DisplayUpdate();
             } while (true);
         }
     }
