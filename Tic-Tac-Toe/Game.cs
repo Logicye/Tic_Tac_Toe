@@ -4,12 +4,7 @@ namespace Tic_Tac_Toe
 {
     internal class Game
     {
-        char[,] board = new char[3, 3]
-            {
-                {' ', ' ', ' '},
-                {' ', ' ', ' '},
-                {' ', ' ', ' '}
-            };
+        private char[,] board;
         readonly char player1 = 'X';
         readonly char player2 = 'O';
         char currentPlayer;
@@ -19,9 +14,15 @@ namespace Tic_Tac_Toe
 
         public Game()
         {
+            board = new char[3, 3]
+            {
+                {' ', ' ', ' '},
+                {' ', ' ', ' '},
+                {' ', ' ', ' '}
+            };
             currentPlayer = player1;
             cancellationTokenSource = new();
-            //escapeCheck  = new Thread(() => EscapeGameCheck(cancellationTokenSource.Token));
+            escapeCheck  = new Thread(() => EscapeGameCheck(cancellationTokenSource.Token));
             //escapeCheck.Start();
             Play();
         }
@@ -29,7 +30,7 @@ namespace Tic_Tac_Toe
         private void Play()
         {
             InitialDraw();
-            Point inputCursorPositionInit = new Point(Console.CursorLeft, Console.CursorTop);
+            Point inputCursorPositionInit = new(Console.CursorLeft, Console.CursorTop);
             while (!GameOver())
             {
                 int row;
@@ -97,11 +98,13 @@ namespace Tic_Tac_Toe
 
         public void UpdateDraw()
         {
+            const int rowOffset = 3;
+            const int colOffset = 3;
             for (int row = 0; row < 3; row++)
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    Console.SetCursorPosition((col*2)+2, (row*2)+2);
+                    Console.SetCursorPosition((col*2)+colOffset, (row*2)+rowOffset);
                     Console.Write(board[row, col]);
                 }
             }
@@ -126,14 +129,15 @@ namespace Tic_Tac_Toe
         private static void InitialDraw()
         {
             Console.Clear();
-            Console.WriteLine(" |1|2|3|");
-            Console.WriteLine("-+-+-+-+");
-            Console.WriteLine("1| | | |");
-            Console.WriteLine("-+-+-+-+");
-            Console.WriteLine("2| | | |");
-            Console.WriteLine("-+-+-+-+");
-            Console.WriteLine("3| | | |");
-            Console.WriteLine("-+-+-+-+");
+            Console.WriteLine("+++-+-+-+");
+            Console.WriteLine("++|1|2|3|");
+            Console.WriteLine("|-+-+-+-+");
+            Console.WriteLine("|1| | | |");
+            Console.WriteLine("|-+-+-+-+");
+            Console.WriteLine("|2| | | |");
+            Console.WriteLine("|-+-+-+-+");
+            Console.WriteLine("|3| | | |");
+            Console.WriteLine("+-+-+-+-+");
         }
 
         private static int GetInput(string prompt, Point init, int upperBound = 3)
@@ -183,7 +187,7 @@ namespace Tic_Tac_Toe
             {
                 keyInfo = Console.ReadKey();
             } while (keyInfo.Key != ConsoleKey.Escape && !token.IsCancellationRequested);
-            RunTime.MainMenu();
+            Menu.Menus.MainMenu();
         }
     }
 }
