@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tic_Tac_Toe.Games
 {
-    internal class SingleplayerGame : Game
+    internal class SingleplayerGame : Game : Bots
     {
         
         public SingleplayerGame() 
         {
-        
         }
     }
 }
