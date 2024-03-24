@@ -10,8 +10,8 @@ namespace Tic_Tac_Toe
                 {' ', ' ', ' '},
                 {' ', ' ', ' '}
             };
-        char player1 = 'X';
-        char player2 = 'O';
+        readonly char player1 = 'X';
+        readonly char player2 = 'O';
         char currentPlayer;
         int turnCount = 0;
         public Game()
@@ -83,8 +83,17 @@ namespace Tic_Tac_Toe
             return false;
         }
 
-        public void Draw()
+        public void UpdateDraw()
         {
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < 3; col++)
+                {
+                    Console.SetCursorPosition(2+(col*2), 2+(row*2));
+                    Console.Write(board[row, col]);
+                }
+            }
+            /*
             Console.Clear();
             Console.WriteLine(" |1|2|3|");
             Console.WriteLine("-+-+-+-+");
@@ -99,9 +108,23 @@ namespace Tic_Tac_Toe
                 Console.WriteLine("\n-+-+-+-+");
             }
             Console.WriteLine();
+            */
         }
 
-        private int GetInput(string prompt, int upperBound = 3)
+        private static void InitialDraw()
+        {
+            Console.Clear();
+            Console.WriteLine(" |1|2|3|");
+            Console.WriteLine("-+-+-+-+");
+            Console.WriteLine("1| | | |");
+            Console.WriteLine("-+-+-+-+");
+            Console.WriteLine("2| | | |");
+            Console.WriteLine("-+-+-+-+");
+            Console.WriteLine("3| | | |");
+            Console.WriteLine("-+-+-+-+");
+        }
+
+        private static int GetInput(string prompt, int upperBound = 3)
         /// <summary>
         /// Takes a prompt and then writes the prompt
         /// out. Then keeps writing over the readline
