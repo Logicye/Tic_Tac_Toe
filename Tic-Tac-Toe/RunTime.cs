@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using Tic_Tac_Toe.Menu;
 
 namespace Tic_Tac_Toe
 {
@@ -6,7 +6,8 @@ namespace Tic_Tac_Toe
     {
         static void Main()
         {
-            Game game = new();
+            Menus.MainMenu();
+            Console.ReadKey();
         }
     }
 }
