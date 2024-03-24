@@ -14,25 +14,32 @@ namespace Tic_Tac_Toe
         readonly char player2 = 'O';
         char currentPlayer;
         int turnCount = 0;
+        CancellationTokenSource cancellationTokenSource;
+        Thread escapeCheck;
+
         public Game()
         {
             currentPlayer = player1;
+            cancellationTokenSource = new();
+            //escapeCheck  = new Thread(() => EscapeGameCheck(cancellationTokenSource.Token));
+            //escapeCheck.Start();
             Play();
         }
 
         private void Play()
         {
+            InitialDraw();
+            Point inputCursorPositionInit = new Point(Console.CursorLeft, Console.CursorTop);
             while (!GameOver())
             {
                 int row;
                 int col;
-                do
-                {
-                    Draw();
-                    row = GetInput("Enter the row");
-                    col = GetInput("Enter the column");
+                do{
+                    row = GetInput("Enter the row", inputCursorPositionInit);
+                    col = GetInput("Enter the column", inputCursorPositionInit);
                 } while (board[row, col] != ' ');
                 board[row, col] = currentPlayer;
+                UpdateDraw();
                 if (currentPlayer == player1)
                 {
                     currentPlayer = player2;
@@ -43,7 +50,7 @@ namespace Tic_Tac_Toe
                 }
                 turnCount++;
             }
-            Draw();
+            UpdateDraw();
             Console.WriteLine("Game Over");
             Console.ReadKey();
         }
@@ -55,6 +62,7 @@ namespace Tic_Tac_Toe
             {
                 if (board[row, 0] == board[row, 1] && board[row, 1] == board[row, 2] && board[row, 0] != ' ')
                 {
+                    cancellationTokenSource.Cancel();
                     return true;
                 }
             }
@@ -63,21 +71,25 @@ namespace Tic_Tac_Toe
             {
                 if (board[0, col] == board[1, col] && board[1, col] == board[2, col] && board[0, col] != ' ')
                 {
+                    cancellationTokenSource.Cancel();
                     return true;
                 }
             }
             //Checks for diagonal win conditions
             if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] && board[1, 1] != ' ')
             {
+                cancellationTokenSource.Cancel();
                 return true;
             }
             else if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0] && board[1, 1] != ' ')
             {
+                cancellationTokenSource.Cancel();
                 return true;
             }
             //Checks for draw condition
             if (turnCount == 9)
             {
+                cancellationTokenSource.Cancel();
                 return true;
             }
             return false;
@@ -89,7 +101,7 @@ namespace Tic_Tac_Toe
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    Console.SetCursorPosition(2+(col*2), 2+(row*2));
+                    Console.SetCursorPosition((col*2)+2, (row*2)+2);
                     Console.Write(board[row, col]);
                 }
             }
@@ -124,7 +136,7 @@ namespace Tic_Tac_Toe
             Console.WriteLine("-+-+-+-+");
         }
 
-        private static int GetInput(string prompt, int upperBound = 3)
+        private static int GetInput(string prompt, Point init, int upperBound = 3)
         /// <summary>
         /// Takes a prompt and then writes the prompt
         /// out. Then keeps writing over the readline
@@ -137,6 +149,9 @@ namespace Tic_Tac_Toe
             Point cursorStart;
 
             //Function Operations
+            Console.SetCursorPosition((int)init.X, (int)init.Y);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition((int)init.X, (int)init.Y);
             Console.Write(prompt + ": ");
             cursorStart = new(Console.CursorLeft, Console.CursorTop);
             while (true)
@@ -159,6 +174,16 @@ namespace Tic_Tac_Toe
                     }
                 }
             }
+        }
+
+        private static void EscapeGameCheck(CancellationToken token)
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                keyInfo = Console.ReadKey();
+            } while (keyInfo.Key != ConsoleKey.Escape && !token.IsCancellationRequested);
+            RunTime.MainMenu();
         }
     }
 }
