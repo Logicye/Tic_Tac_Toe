@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tic_Tac_Toe.Bots
+namespace Tic_Tac_Toe.Games.Bots
 {
-    internal class EasyBot : Bot
+    internal class Bot
     {
     }
 }
