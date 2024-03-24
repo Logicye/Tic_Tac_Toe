@@ -8,7 +8,7 @@
             Console.ReadKey();
         }
 
-        private static Menu MainMenu()
+        public static Menu MainMenu()
         {
             return new("Tic - Tac - Toe",
                 new KeyValuePair<string, Action>("Single Player", () => SinglePlayerMenu()),
