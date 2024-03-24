@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using Tic_Tac_Toe.Handlers;
 
-namespace Tic_Tac_Toe.Game
+namespace Tic_Tac_Toe.Games
 {
     internal class Game
     {
