@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tic-Tac-Toe", "Tic-Tac-Toe\Tic-Tac-Toe.csproj", "{2362C591-0BD2-40BA-B4F7-CCA08CF80211}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tic-Tac-Toe", "Tic-Tac-Toe\Tic-Tac-Toe.csproj", "{2362C591-0BD2-40BA-B4F7-CCA08CF80211}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greeting-Service(Logging_Test)", "Greeting-Service(Logging_Test)\Greeting-Service(Logging_Test).csproj", "{BB747686-F550-44F2-8860-07B5B3A736F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2362C591-0BD2-40BA-B4F7-CCA08CF80211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2362C591-0BD2-40BA-B4F7-CCA08CF80211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2362C591-0BD2-40BA-B4F7-CCA08CF80211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB747686-F550-44F2-8860-07B5B3A736F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB747686-F550-44F2-8860-07B5B3A736F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB747686-F550-44F2-8860-07B5B3A736F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB747686-F550-44F2-8860-07B5B3A736F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

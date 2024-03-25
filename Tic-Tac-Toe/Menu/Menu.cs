@@ -1,4 +1,7 @@
-﻿namespace Tic_Tac_Toe.Menu
+﻿using System.Diagnostics;
+using Tic_Tac_Toe.Handlers;
+
+namespace Tic_Tac_Toe.Menu
 {
     internal class Menu
     {
@@ -12,9 +15,45 @@
             foreach (KeyValuePair<string, Action> pair in optionPairs)
             {
                 options.Add(new Option(pair.Key, pair.Value));
-            }
+            };
+            /*
+            handler.OnUpArrowKeyPressed += OnUpArrowKeyPressed;
+            handler.OnDownArrowKeyPressed += OnDownArrowKeyPressed;
+            handler.OnEnterKeyPressed += OnEnterKeyPressed;
             Display();
+            */
+            
         }
+
+
+        /*
+        private void OnEnterKeyPressed()
+        {
+            Debug.WriteLine("Enter");
+            options[selectedIndex].Invoke();
+            DisplayUpdate();
+        }
+
+        private void OnUpArrowKeyPressed()
+        {
+            Debug.WriteLine("Up");
+            if (selectedIndex > 0)
+            {
+                selectedIndex--;
+            }
+            DisplayUpdate();
+        }
+
+        private void OnDownArrowKeyPressed()
+        {
+            Debug.WriteLine("Down");
+            if (selectedIndex < options.Count - 1)
+            {
+                selectedIndex++;
+            }
+            DisplayUpdate();
+        }
+        */
 
         readonly struct Option
         {
@@ -50,11 +89,24 @@
                     Console.WriteLine("   " + option.Name());
                 }
             }
-            MenuInputHandle();
+            //MenuInputHandle();
         }
 
         private void DisplayUpdate()
         {
+            for (int i = 0; i < options.Count; i++)
+            {
+                Console.SetCursorPosition(1, i + 1);
+                if (i == selectedIndex)
+                {
+                    Console.Write(">");
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+            }
+            /*
             int count = 0;
             foreach (Option option in options)
             {
@@ -69,6 +121,7 @@
                 }
                 count++;
             }
+            */
         }
 
         private void MenuInputHandle()

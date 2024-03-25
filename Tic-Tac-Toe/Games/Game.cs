@@ -21,7 +21,6 @@ namespace Tic_Tac_Toe.Games
             };
             currentPlayer = player1;
             Play();
-            Menu.Menus.MainMenu();
         }
 
         private void Play()
@@ -96,9 +95,9 @@ namespace Tic_Tac_Toe.Games
         private static void InitialDraw()
         {
             Console.Clear();
-            Console.WriteLine("+++-+-+-+");
-            Console.WriteLine("++|1|2|3|");
-            Console.WriteLine("|-+-+-+-+");
+            Console.WriteLine("  +-+-+-+");
+            Console.WriteLine("  |1|2|3|");
+            Console.WriteLine("+-+-+-+-+");
             Console.WriteLine("|1| | | |");
             Console.WriteLine("|-+-+-+-+");
             Console.WriteLine("|2| | | |");
