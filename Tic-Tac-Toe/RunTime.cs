@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.IO;
 
@@ -24,6 +25,16 @@ namespace Tic_Tac_Toe
                 .Enrich.FromLogContext()
                 .WriteTo.Debug()
                 .CreateLogger();
+
+            Log.Logger.Information("Application Starting...");
+
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+
+                })
+                .UseSerilog()
+                .Build();
 
         }
 
