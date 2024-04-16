@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tic_Tac_Toe.Games.Bots
 {
-    internal class Bot
+    public interface IBot
     {
+        int Difficulty { get; }
     }
 }

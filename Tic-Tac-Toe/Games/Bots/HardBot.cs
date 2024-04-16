@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tic_Tac_Toe.Games.Bots
 {
-    internal class HardBot : Bot
-    {
-    }
+	internal class HardBot : IBot
+	{
+		public int Difficulty => throw new NotImplementedException();
+	}
 }
