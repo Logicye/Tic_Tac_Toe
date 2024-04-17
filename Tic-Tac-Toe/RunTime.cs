@@ -1,18 +1,15 @@
 ﻿using System.IO;
+using Tic_Tac_Toe.Menu;
+using Tic_Tac_Toe.Handlers;
 
 namespace Tic_Tac_Toe
 {
     class RunTime
     {
-        static void Main()
+        static async Task Main()
         {
-            /*
-            InputEventHandler inputEventHandler = new InputEventHandler();
-            Thread InputHandler = new Thread(inputEventHandler.KeyPressedCheck);
-            InputHandler.Start();
-            Menus.MainMenu();
-            Console.ReadKey(true);
-            */
-        }
+            ConsoleKeyboardEventHandler.Start();
+			Menus.MainMenu();
+		}
     }
 }  
