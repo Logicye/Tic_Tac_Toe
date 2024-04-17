@@ -1,164 +1,285 @@
-﻿using System.Diagnostics;
+﻿using System.Drawing;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using Tic_Tac_Toe.Handlers;
 
 namespace Tic_Tac_Toe.Menu
 {
-    internal class Menu
+    class Menu : IConsoleEvents
     {
-        private readonly string title;
-        private readonly List<Option> options = new();
-        private int selectedIndex;
-        public Menu(string title, params KeyValuePair<string, Action>[] optionPairs)
+        #region Frame Variables
+        private char corner = '+';
+        private char horizontalLine = '-';
+        private char verticalLine = '|';
+        private char whiteSpace = ' ';
+        private bool colorizeWhiteSpace = false;
+        ConsoleColor frameBackgroundColor = ConsoleColor.Black;
+        ConsoleColor frameTextColor = ConsoleColor.White;
+        #endregion
+
+        #region Menu Padding Variables
+        private int titlePadding;
+        private int widthPadding;
+        private int optionPadding;
+        private int optionSpacing;
+        #endregion
+
+        #region Menu  Variables
+        private int maxLength;
+        private int selectedOption = 0;
+        private string title;
+
+        private Dictionary<Option, Point> options;
+        private List<string> frame;
+
+        ConsoleColor menuBackgroundColor = ConsoleColor.Black;
+        ConsoleColor menuTextColor = ConsoleColor.White;
+        ConsoleColor selectedOptionBackgroundColor = ConsoleColor.White;
+        ConsoleColor selectedOptionTextColor = ConsoleColor.Black;
+        #endregion
+
+        public Menu(string title, List<Option> options, int widthPadding = 3, int titlePadding = 1, int optionPadding = 1, int optionSpacing = 0)
         {
+            Console.CursorVisible = false;
             this.title = title;
-            selectedIndex = 0;
-            foreach (KeyValuePair<string, Action> pair in optionPairs)
+            this.widthPadding = widthPadding;
+            this.titlePadding = titlePadding;
+            this.optionPadding = optionPadding;
+            this.optionSpacing = optionSpacing;
+
+            this.options = new Dictionary<Option, Point>();
+            frame = new List<string>();
+
+            maxLength = title.Length;
+            foreach (var option in options)
             {
-                options.Add(new Option(pair.Key, pair.Value));
-            };
-            /*
-            handler.OnUpArrowKeyPressed += OnUpArrowKeyPressed;
-            handler.OnDownArrowKeyPressed += OnDownArrowKeyPressed;
-            handler.OnEnterKeyPressed += OnEnterKeyPressed;
-            Display();
-            */
-            
-        }
-
-
-        /*
-        private void OnEnterKeyPressed()
-        {
-            Debug.WriteLine("Enter");
-            options[selectedIndex].Invoke();
-            DisplayUpdate();
-        }
-
-        private void OnUpArrowKeyPressed()
-        {
-            Debug.WriteLine("Up");
-            if (selectedIndex > 0)
-            {
-                selectedIndex--;
+                if (option.Name.Length > maxLength) { maxLength = option.Name.Length; }
             }
-            DisplayUpdate();
-        }
 
-        private void OnDownArrowKeyPressed()
-        {
-            Debug.WriteLine("Down");
-            if (selectedIndex < options.Count - 1)
+            int row = this.titlePadding * 2 + this.optionPadding + 3;
+            foreach (Option option in options)
             {
-                selectedIndex++;
+                this.options.Add(option, new Point(FindHorizontalCursorPos(option.Name), row));
+                row += optionSpacing + 1;
             }
-            DisplayUpdate();
+            Console.Clear();
+            InitializeFrame();
+            Register();
         }
-        */
 
-        readonly struct Option
+        #region Input Methods
+
+        private void ScrollUp()
         {
-            private readonly string name;
+            if (selectedOption > 0)
+            {
+                selectedOption--;
+            }
+            else
+            {
+                return;
+            }
+            DisplayOptions();
+        }
+        private void ScrollDown()
+        {
+            if (selectedOption < options.Count - 1)
+            {
+                selectedOption++;
+            }
+            else
+            {
+                return;
+            }
+            DisplayOptions();
+        }
+        private void SelectOption()
+        {
+            try
+            {
+                var option = options.ElementAt(selectedOption);
+                option.Key.Invoke();
+                Unregister();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        private void Escape()
+        {
+            Unregister();
+            var option = options.ElementAt(options.Count - 1);
+            option.Key.Invoke();
+        }
+        public void Register()
+        {
+            ConsoleKeyboardEventHandler.KeyPressed += OnKeyPressed;
+        }
+        public void Unregister()
+        {
+            ConsoleKeyboardEventHandler.KeyPressed -= OnKeyPressed;
+        }
+        public void OnKeyPressed(ConsoleKey key)
+        {
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    ScrollUp();
+                    break;
+                case ConsoleKey.W:
+                    ScrollUp();
+                    break;
+                case ConsoleKey.DownArrow:
+                    ScrollDown();
+                    break;
+                case ConsoleKey.S:
+                    ScrollDown();
+                    break;
+                case ConsoleKey.Enter:
+                    SelectOption();
+                    break;
+                case ConsoleKey.Spacebar:
+                    SelectOption();
+                    break;
+                case ConsoleKey.Escape:
+                    Escape();
+                    break;
+            }
+        }
+        #endregion
+
+        #region Frame and Option Methods
+        private void GenerateFrame()
+        {
+            //standard row formats
+            string rowDivider = corner + new string(horizontalLine, maxLength + widthPadding * 2) + corner;
+            string vertEnds = verticalLine + new string(whiteSpace, maxLength + widthPadding * 2) + verticalLine;
+
+            //Title Section
+            frame.Clear();
+            frame.Add(rowDivider);
+            for (int i = 0; i < titlePadding * 2 + 1; i++)
+            {
+                frame.Add(vertEnds);
+            }
+            frame.Add(rowDivider);
+
+            //Option Section
+            for (int i = 0; i < optionPadding * 2; i++)
+            {
+                frame.Add(vertEnds);
+            }
+            for (int i = 0; i < optionSpacing * options.Count - 1; i++)
+            {
+                frame.Add(vertEnds);
+            }
+            for (int i = 0; i < options.Count; i++)
+            {
+                frame.Add(vertEnds);
+            }
+            frame.Add(rowDivider);
+        }
+        public void InitializeFrame()
+        {
+            GenerateFrame();
+            foreach (var line in frame)
+            {
+                Console.WriteLine();
+            }
+            UpdateFrame();
+        }
+        private void UpdateFrame()
+        {
+            UseFrameColor();
+            Point currentCursorPos = new Point(0, 0);
+            foreach (var line in frame)
+            {
+                foreach (var text in line)
+                {
+                    if (text != whiteSpace || colorizeWhiteSpace == true)
+                    {
+                        Console.SetCursorPosition(currentCursorPos.X, currentCursorPos.Y);
+                        Console.Write(text);
+                    }
+                    currentCursorPos.X++;
+                }
+                currentCursorPos.X = 0;
+                currentCursorPos.Y++;
+            }
+            Console.SetCursorPosition(FindHorizontalCursorPos(title), 1 + titlePadding);
+            Console.Write(title);
+            ColorReset();
+            DisplayOptions();
+        }
+        public void AlterFrameAttributes(char corner = '+', char horizontalLine = '-', char verticalLine = '|', char whiteSpace = ' ', ConsoleColor textColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, bool colorizeWhiteSpace = false)
+        {
+            this.corner = corner;
+            this.horizontalLine = horizontalLine;
+            this.verticalLine = verticalLine;
+            this.whiteSpace = whiteSpace;
+            frameTextColor = textColor;
+            frameBackgroundColor = backgroundColor;
+            this.colorizeWhiteSpace = colorizeWhiteSpace;
+            GenerateFrame();
+            UpdateFrame();
+        }
+        private void DisplayOptions()
+        {
+            int count = 0;
+            foreach (var option in options)
+            {
+                if (selectedOption == count) { UseSelectedOptionColor(); }
+                Console.SetCursorPosition(option.Value.X, option.Value.Y);
+                Console.Write(option.Key.Name);
+                count++;
+                ColorReset();
+            }
+        }
+        #endregion
+
+        #region Color Control Methods
+        private void ColorReset()
+        {
+            Console.ForegroundColor = menuTextColor;
+            Console.BackgroundColor = menuBackgroundColor;
+        }
+        private void UseFrameColor()
+        {
+            Console.ForegroundColor = frameTextColor;
+            Console.BackgroundColor = frameBackgroundColor;
+        }
+        private void UseSelectedOptionColor()
+        {
+            Console.ForegroundColor = selectedOptionTextColor;
+            Console.BackgroundColor = selectedOptionBackgroundColor;
+        }
+        #endregion
+
+        private int FindHorizontalCursorPos(string value)
+        {
+            return (maxLength + 2 + widthPadding * 2) / 2 - value.Length / 2;
+        }
+
+        ~Menu()
+        {
+            Debug.WriteLine($"The menu titled {title} has been disposed");
+        }
+
+        public struct Option
+        {
+            public string Name { get; }
             private readonly Action action;
-            public Option(string name, Action action)
+            public Option(string name, Action Action)
             {
-                this.name = name;
-                this.action = action;
+                Name = name;
+                action = Action;
             }
-
-            public readonly string Name() { return name; }
-
             public void Invoke()
             {
                 action.Invoke();
             }
         }
 
-        private void Display()
-        {
-            Console.CursorVisible = false;
-            Console.Clear();
-            Console.WriteLine(title);
-            foreach (Option option in options)
-            {
-                if (option.Name() == options[selectedIndex].Name())
-                {
-                    Console.WriteLine(" > " + option.Name());
-                }
-                else
-                {
-                    Console.WriteLine("   " + option.Name());
-                }
-            }
-            //MenuInputHandle();
-        }
-
-        private void DisplayUpdate()
-        {
-            for (int i = 0; i < options.Count; i++)
-            {
-                Console.SetCursorPosition(1, i + 1);
-                if (i == selectedIndex)
-                {
-                    Console.Write(">");
-                }
-                else
-                {
-                    Console.Write(" ");
-                }
-            }
-            /*
-            int count = 0;
-            foreach (Option option in options)
-            {
-                Console.SetCursorPosition(1, count + 1);
-                if (count == selectedIndex)
-                {
-                    Console.Write(">");
-                }
-                else
-                {
-                    Console.Write(" ");
-                }
-                count++;
-            }
-            */
-        }
-
-        private void MenuInputHandle()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.UpArrow)
-                {
-                    if (selectedIndex == 0)
-                    {
-                        selectedIndex = options.Count - 1;
-                    }
-                    else
-                    {
-                        selectedIndex--;
-                    }
-                }
-                else if (keyInfo.Key == ConsoleKey.DownArrow)
-                {
-                    if (selectedIndex == options.Count - 1)
-                    {
-                        selectedIndex = 0;
-                    }
-                    else
-                    {
-                        selectedIndex++;
-                    }
-                }
-                else if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    options[selectedIndex].Invoke();
-                    break;
-                }
-                DisplayUpdate();
-            } while (true);
-        }
     }
 }

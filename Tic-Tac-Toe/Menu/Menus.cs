@@ -3,44 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tic_Tac_Toe.Games;
-using Tic_Tac_Toe.Handlers;
 
 namespace Tic_Tac_Toe.Menu
 {
-    internal class Menus
+    static class Menus
     {
-        public static Menu MainMenu()
+        public static void MainMenu()
         {
-            return new("Tic - Tac - Toe",
-                new KeyValuePair<string, Action>("Single Player", () => SinglePlayerMenu()),
-                new KeyValuePair<string, Action>("Multiplayer", () => MultiPlayerMenu()),
-                new KeyValuePair<string, Action>("Exit", () => Environment.Exit(0)));
+            string menuName = "Tic - Tac - Toe";
+            List<Menu.Option> menuOptions = new List<Menu.Option>
+            {
+                new Menu.Option("Singleplayer", () => SinglePlayerMenu()),
+                new Menu.Option("Multiplayer", () => MultiPlayerMenu()),
+                new Menu.Option("Exit", () => Environment.Exit(0))
+            };
+            Menu menu = new Menu(menuName, menuOptions);
+            //menu.InitializeFrame();
+        }
+        public static void SinglePlayerMenu()
+        {
+            string menuName = "Singeplayer";
+            List<Menu.Option> menuOptions = new List<Menu.Option>
+            {
+                new Menu.Option("Easy", () => throw new NotImplementedException()),
+                new Menu.Option("Medium", () => throw new NotImplementedException()),
+                new Menu.Option("Hard", () => throw new NotImplementedException()),
+                new Menu.Option("Experimental AI", () => throw new NotImplementedException()),
+                new Menu.Option("Return", () => MainMenu())
+            };
+            Menu menu = new Menu(menuName, menuOptions);
+            //menu.InitializeFrame();
+        }
+        public static void MultiPlayerMenu()
+        {
+            string menuName = "Multiplayer";
+            List<Menu.Option> menuOptions = new List<Menu.Option>
+            {
+                new Menu.Option("Local Multiplayer", () => throw new NotImplementedException()),
+                new Menu.Option("Online Multiplayer", () => OnlinePlayMenu()),
+                new Menu.Option("Return", () => MainMenu())
+            };
+            Menu menu = new Menu(menuName, menuOptions);
+            //menu.InitializeFrame();
         }
 
-        private static Menu SinglePlayerMenu()
+        public static void OnlinePlayMenu()
         {
-            return new("Difficulty",
-                new KeyValuePair<string, Action>("Easy", () => Console.WriteLine("1")),
-                new KeyValuePair<string, Action>("Medium", () => Console.WriteLine("2")),
-                new KeyValuePair<string, Action>("Hard", () => Console.WriteLine("3")),
-                new KeyValuePair<string, Action>("Return", () => MainMenu()));
-        }
-
-        private static Menu MultiPlayerMenu()
-        {
-            return new("Multiplayer",
-                new KeyValuePair<string, Action>("Local Play", () => new Games.Game()),
-                new KeyValuePair<string, Action>("Online Play", () => OnlinePlayMenu()),
-                new KeyValuePair<string, Action>("Return", () => MainMenu()));
-        }
-
-        private static Menu OnlinePlayMenu()
-        {
-            return new("Online Play",
-                new KeyValuePair<string, Action>("Host Game", () => Console.WriteLine("1")),
-                new KeyValuePair<string, Action>("Connect To Game", () => Console.WriteLine("2")),
-                new KeyValuePair<string, Action>("Return", () => MultiPlayerMenu()));
+            string menuName = "Online Play Options";
+            List<Menu.Option> menuOptions = new List<Menu.Option>
+            {
+                new Menu.Option("Host Game", () => throw new NotImplementedException()),
+                new Menu.Option("Connect To Game", () => throw new NotImplementedException()),
+                new Menu.Option("Search For Online Game", () => throw new NotImplementedException()),
+                new Menu.Option("Return", () => MultiPlayerMenu())
+            };
+            Menu menu = new Menu(menuName, menuOptions);
+            //menu.InitializeFrame();
         }
     }
 }

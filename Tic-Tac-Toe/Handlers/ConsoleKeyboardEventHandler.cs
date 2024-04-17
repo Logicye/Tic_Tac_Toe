@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleTestingBase
+namespace Tic_Tac_Toe.Handlers
 {
 	static class ConsoleKeyboardEventHandler
 	{

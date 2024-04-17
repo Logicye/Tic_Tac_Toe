@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Tic_Tac_Toe.Handlers;
+using Tic_Tac_Toe.DepricatedCode.Handlers;
 
 namespace Tic_Tac_Toe.DepricatedCode.Menu
 {
