@@ -13,9 +13,12 @@ namespace Tic_Tac_Toe.Handlers
 		public static event KeyboardEvent? KeyPressed;
 
 		private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-		public static void Start()
+
+		private static Thread _inputHandling = new Thread(() => InputHandling());
+
+		private static void InputHandling()
 		{
-			_cancellationTokenSource = new CancellationTokenSource();		
+			_cancellationTokenSource = new CancellationTokenSource();
 
 			while (!_cancellationTokenSource.IsCancellationRequested)
 			{
@@ -23,6 +26,12 @@ namespace Tic_Tac_Toe.Handlers
 				KeyPressed?.Invoke(keyInfo.Key);
 			}
 			Debug.WriteLine("Event Handler Finished Execution");
+		}
+		
+		
+		public static void Start()
+		{
+			_inputHandling.Start();
 		}
 
 		public static void Stop()
