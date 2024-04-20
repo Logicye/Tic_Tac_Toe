@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using Tic_Tac_Toe.DepricatedCode.Handlers;
 
 namespace Tic_Tac_Toe.Games
 {
@@ -20,9 +19,9 @@ namespace Tic_Tac_Toe.Games
                 {' ', ' ', ' '}
             };
             currentPlayer = player1;
-            Play();
+            //Play();
         }
-
+        /*
         private void Play()
         {
             InitialDraw();
@@ -42,6 +41,7 @@ namespace Tic_Tac_Toe.Games
             UpdateDraw();
             ConsoleHandler.WriteOverLine("Game Over", inputCursorPositionInit);
         }
+        */
 
         private bool GameOver()
         {
