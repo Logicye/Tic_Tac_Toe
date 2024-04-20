@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Tic_Tac_Toe.Handlers;
+using Tic_Tac_Toe.DepricatedCode.Handlers;
 
 namespace Tic_Tac_Toe.Games
 {
@@ -91,7 +91,7 @@ namespace Tic_Tac_Toe.Games
                 }
             }
         }
-
+        
         private static void InitialDraw()
         {
             Console.Clear();
