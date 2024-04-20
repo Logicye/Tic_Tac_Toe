@@ -1,7 +1,13 @@
-﻿namespace Tic_Tac_Toe.Games.Players.Bots
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Tic_Tac_Toe.Games.Players.Bots
 {
-	internal class MediumBot : IBot
-	{
-		public int Difficulty => throw new NotImplementedException();
-	}
+    internal class MediumBot : IBot
+    {
+        public int Difficulty => throw new NotImplementedException();
+    }
 }

@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DepricatedCode\Games\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ConsoleGameFramework\ConsoleGameFramework.csproj" />
   </ItemGroup>
 

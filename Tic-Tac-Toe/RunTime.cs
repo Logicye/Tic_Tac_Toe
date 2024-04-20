@@ -1,14 +1,15 @@
-﻿using Tic_Tac_Toe.Handlers;
+﻿using System.IO;
 using Tic_Tac_Toe.Menu;
+using Tic_Tac_Toe.Handlers;
 
 namespace Tic_Tac_Toe
 {
-	class RunTime
-	{
-		static void Main()
-		{
-			ConsoleKeyboardEventHandler.Start();
+    class RunTime
+    {
+        static void Main()
+        {
+            ConsoleKeyboardEventHandler.Start();
 			Menus.MainMenu();
 		}
-	}
-}
+    }
+}  
