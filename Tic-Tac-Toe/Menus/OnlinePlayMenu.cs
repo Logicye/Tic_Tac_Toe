@@ -16,7 +16,7 @@ namespace Tic_Tac_Toe.Menus
 
 		public static void Invoke()
 		{
-			_menu.Initialize();
+			_menu.Show();
 		}
 	}
 }
