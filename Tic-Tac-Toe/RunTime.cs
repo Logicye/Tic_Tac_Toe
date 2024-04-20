@@ -1,4 +1,5 @@
-﻿using Tic_Tac_Toe.Menus;
+﻿using ConsoleGameFramework.Input.ReadKey;
+using Tic_Tac_Toe.Menus;
 
 namespace Tic_Tac_Toe
 {
@@ -6,6 +7,7 @@ namespace Tic_Tac_Toe
     {
         static void Main()
         {
+            ReadKeyStaticAsync.Start();
             MainMenu.Invoke();
 		}
     }
