@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Tic_Tac_Toe.DepricatedCode.Handlers
 {
-    internal class InputEventHandler
-    {
-        public delegate void KeyPressed(ConsoleKeyInfo keyInfo);
-        public delegate void KeyPressedSpecific();
+	internal class InputEventHandler
+	{
+		public delegate void KeyPressed(ConsoleKeyInfo keyInfo);
+		public delegate void KeyPressedSpecific();
 
-        public static event KeyPressed? OnKeyPressed;
+		public static event KeyPressed? OnKeyPressed;
 
-        public event KeyPressedSpecific? OnEnterKeyPressed;
-        public event KeyPressedSpecific? OnUpArrowKeyPressed;
-        public event KeyPressedSpecific? OnDownArrowKeyPressed;
-        public event KeyPressedSpecific? OnLeftArrowKeyPressed;
-        public event KeyPressedSpecific? OnRightArrowKeyPressed;
-        //public event KeyPressedSpecific? OnSpaceBarKeyPressed;
-        //public event KeyPressedSpecific? OnAKeyPressed;
-        //public event KeyPressedSpecific? OnSKeyPressed;
-        //public event KeyPressedSpecific? OnDKeyPressed;
-        //public event KeyPressedSpecific? OnWKeyPressed;
-        public event KeyPressedSpecific? OnEscapeKeyPressed;
+		public event KeyPressedSpecific? OnEnterKeyPressed;
+		public event KeyPressedSpecific? OnUpArrowKeyPressed;
+		public event KeyPressedSpecific? OnDownArrowKeyPressed;
+		public event KeyPressedSpecific? OnLeftArrowKeyPressed;
+		public event KeyPressedSpecific? OnRightArrowKeyPressed;
+		//public event KeyPressedSpecific? OnSpaceBarKeyPressed;
+		//public event KeyPressedSpecific? OnAKeyPressed;
+		//public event KeyPressedSpecific? OnSKeyPressed;
+		//public event KeyPressedSpecific? OnDKeyPressed;
+		//public event KeyPressedSpecific? OnWKeyPressed;
+		public event KeyPressedSpecific? OnEscapeKeyPressed;
 
-        /*
+		/*
         public event EventHandler OnEnterKeyPressed;
         public event EventHandler OnSpaceBarKeyPressed;
         public event EventHandler OnUpArrowKeyPressed;
@@ -40,56 +35,56 @@ namespace Tic_Tac_Toe.DepricatedCode.Handlers
         public event EventHandler OnWKeyPressed;
         */
 
-        public InputEventHandler()
-        {
-            while (true)
-            {
+		public InputEventHandler()
+		{
+			while (true)
+			{
 
-            }
-        }
+			}
+		}
 
-        public static void KeyPressedCheck()
-        {
-            ConsoleKeyInfo keyInfo;
-            while (true)
-            {
-                keyInfo = Console.ReadKey(true);
-                OnKeyPressed?.Invoke(keyInfo);
-            }
-        }
+		public static void KeyPressedCheck()
+		{
+			ConsoleKeyInfo keyInfo;
+			while (true)
+			{
+				keyInfo = Console.ReadKey(true);
+				OnKeyPressed?.Invoke(keyInfo);
+			}
+		}
 
-        public void KeyPressedSpecificCheck()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    Debug.WriteLine("Enter");
-                    OnEnterKeyPressed?.Invoke();
-                }
-                else if (keyInfo.Key == ConsoleKey.UpArrow)
-                {
-                    OnUpArrowKeyPressed?.Invoke();
-                }
-                else if (keyInfo.Key == ConsoleKey.DownArrow)
-                {
-                    OnDownArrowKeyPressed?.Invoke();
-                }
-                else if (keyInfo.Key == ConsoleKey.LeftArrow)
-                {
-                    OnLeftArrowKeyPressed?.Invoke();
-                }
-                else if (keyInfo.Key == ConsoleKey.RightArrow)
-                {
-                    OnRightArrowKeyPressed?.Invoke();
-                }
-                else if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    OnEscapeKeyPressed?.Invoke();
-                }
-                /*
+		public void KeyPressedSpecificCheck()
+		{
+			ConsoleKeyInfo keyInfo;
+			do
+			{
+				keyInfo = Console.ReadKey(true);
+				if (keyInfo.Key == ConsoleKey.Enter)
+				{
+					Debug.WriteLine("Enter");
+					OnEnterKeyPressed?.Invoke();
+				}
+				else if (keyInfo.Key == ConsoleKey.UpArrow)
+				{
+					OnUpArrowKeyPressed?.Invoke();
+				}
+				else if (keyInfo.Key == ConsoleKey.DownArrow)
+				{
+					OnDownArrowKeyPressed?.Invoke();
+				}
+				else if (keyInfo.Key == ConsoleKey.LeftArrow)
+				{
+					OnLeftArrowKeyPressed?.Invoke();
+				}
+				else if (keyInfo.Key == ConsoleKey.RightArrow)
+				{
+					OnRightArrowKeyPressed?.Invoke();
+				}
+				else if (keyInfo.Key == ConsoleKey.Escape)
+				{
+					OnEscapeKeyPressed?.Invoke();
+				}
+				/*
                 switch (keyInfo.Key)
                 {
                     case (ConsoleKey.Enter):
@@ -127,7 +122,7 @@ namespace Tic_Tac_Toe.DepricatedCode.Handlers
                         //    break;
                 }
                 */
-            } while (true);
-        }
-    }
+			} while (true);
+		}
+	}
 }

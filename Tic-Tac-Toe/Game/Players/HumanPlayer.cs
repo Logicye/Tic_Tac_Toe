@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Tic_Tac_Toe.Games.PlayerObjects
 {
@@ -22,12 +17,12 @@ namespace Tic_Tac_Toe.Games.PlayerObjects
 
 		public void CursorController()
 		{
-			
+
 		}
 
 		public void PlayerControl()
 		{
-			
+
 		}
 
 		public Point PlayerMove()

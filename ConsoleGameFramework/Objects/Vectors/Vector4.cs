@@ -1,6 +1,8 @@
 ﻿namespace ConsoleGameFramework.Objects.Vectors
 {
+#pragma warning disable CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
 	public struct Vector4 : IEquatable<Vector4>
+#pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
 	{
 		#region Properties
 		public float X { get; }

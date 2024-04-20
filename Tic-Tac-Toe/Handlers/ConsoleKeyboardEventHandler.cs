@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Tic_Tac_Toe.Handlers
 {
@@ -27,8 +22,8 @@ namespace Tic_Tac_Toe.Handlers
 			}
 			Debug.WriteLine("Event Handler Finished Execution");
 		}
-		
-		
+
+
 		public static void Start()
 		{
 			_inputHandling.Start();
