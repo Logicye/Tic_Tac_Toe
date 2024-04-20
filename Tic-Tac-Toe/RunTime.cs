@@ -1,6 +1,4 @@
-﻿using System.IO;
-using Tic_Tac_Toe.Menu;
-using Tic_Tac_Toe.Handlers;
+﻿using Tic_Tac_Toe.Menus;
 
 namespace Tic_Tac_Toe
 {
@@ -8,8 +6,7 @@ namespace Tic_Tac_Toe
     {
         static void Main()
         {
-            ConsoleKeyboardEventHandler.Start();
-			Menus.MainMenu();
+            MainMenu.Invoke();
 		}
     }
 }  
