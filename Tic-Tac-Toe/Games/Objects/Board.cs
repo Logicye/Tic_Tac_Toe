@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tic_Tac_Toe.Games.GameObjects
+namespace Tic_Tac_Toe.Games.Objects
 {
     internal class Board
     {
