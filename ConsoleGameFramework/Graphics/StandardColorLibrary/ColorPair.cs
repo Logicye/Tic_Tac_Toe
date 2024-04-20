@@ -1,40 +1,40 @@
 ﻿namespace ConsoleGameFramework.Graphics.StandardColorLibrary
 {
-	public readonly struct ColorPair
-	{
-		private readonly Color _foreground;
-		private readonly Color _background;
+    public struct ColorPair
+    {
+        private readonly Color foreground;
+        private readonly Color background;
 
-		public ColorPair(Color foreground, Color background)
-		{
-			this._foreground = foreground;
-			this._background = background;
-		}
+        public ColorPair(Color foreground, Color background)
+        {
+            this.foreground = foreground;
+            this.background = background;
+        }
 
-		public ColorPair(Color color, bool Foreground, bool Readable)
-		{
-			if (Foreground)
-			{
-				this._foreground = color;
-				if (Readable) _background = _foreground.ReadableColor();
-				else _background = _foreground.Inverse();
+        public ColorPair(Color color, bool Foreground, bool Readable)
+        {
+            if (Foreground)
+            {
+                this.foreground = color;
+				if (Readable) background = foreground.ReadableColor();
+				else background = foreground.Inverse();
 			}
-			else
-			{
-				this._background = color;
-				if (Readable) _foreground = _background.ReadableColor();
-				else _foreground = _background.Inverse();
+            else
+            {
+                this.background = color;
+				if (Readable) foreground = background.ReadableColor();
+				else foreground = background.Inverse();
 			}
-		}
+        }
 
-		public void UseColor()
-		{
-			Console.ForegroundColor = _foreground.ReferenceColor;
-			Console.BackgroundColor = _background.ReferenceColor;
-		}
+        public void UseColor()
+        {
+            Console.ForegroundColor = foreground.ReferenceColor;
+            Console.BackgroundColor = background.ReferenceColor;
+        }
 
-		public Color Foreground => _foreground;
-		public Color Background => _background;
+        public Color Foreground => foreground;
+		public Color Background => background;
 	}
 }
 
