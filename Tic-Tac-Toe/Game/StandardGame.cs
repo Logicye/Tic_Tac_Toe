@@ -4,14 +4,14 @@ using Tic_Tac_Toe.Game.Players;
 
 namespace Tic_Tac_Toe.Game
 {
-    internal class Game : IUpdateEvents
+    internal class StandardGame : IUpdateEvents
     {
 		private IPlayer _player1;
 		private IPlayer _player2;
 		private Board _board;
 		private GameState _state;
 
-		public Game(IPlayer player1, IPlayer player2)
+		public StandardGame(IPlayer player1, IPlayer player2)
 		{
 			_player1 = player1;
 			_player2 = player2;
