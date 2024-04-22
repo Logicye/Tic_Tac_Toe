@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace Tic_Tac_Toe.Games
+namespace Tic_Tac_Toe.Game
 {
-    internal class Game
+    internal class oldGame
     {
         private char[,] board;
         readonly char player1 = 'X';
@@ -10,7 +10,7 @@ namespace Tic_Tac_Toe.Games
         char currentPlayer;
         int turnCount = 0;
 
-        public Game()
+        public oldGame()
         {
             board = new char[3, 3]
             {
