@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleGameFramework.Objects.Vectors;
+using Tic_Tac_Toe.Game.Objects;
 
-namespace Tic_Tac_Toe.Games.Players.Bots
+namespace Tic_Tac_Toe.Game.Players.Bots
 {
-    internal class HardBot : IBot
-    {
-        public int Difficulty => throw new NotImplementedException();
-    }
+	internal class HardBot : IBot
+	{
+		public Route Route { get; private set; }
+
+		public void ExecuteRoute()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Route NewRoute(Vector2 current, Vector2 target)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Vector2 NextMove()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
