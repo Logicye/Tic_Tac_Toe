@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ConsoleGameFramework.Graphics.StandardColorLibrary;
 using ConsoleGameFramework.Objects.Vectors;
 
-namespace Tic_Tac_Toe.Games.Objects
+namespace Tic_Tac_Toe.Game.Objects
 {
     internal class Cell
     {
@@ -23,18 +23,20 @@ namespace Tic_Tac_Toe.Games.Objects
 		#endregion
 
 		public Vector2 CellPosition { get; }
+        public Vector2 ConsolePosition { get; }
         private bool empty;
         private char value;
 
-        public Cell(int row, int col)
+        public Cell(int consoleX, int consoleY, int x, int y)
         {
             empty = true;
             value = ' ';
-            CellPosition = new Vector2(row, col);
+            ConsolePosition = new Vector2(consoleX, consoleY);
+            CellPosition = new Vector2(x, y);
 
             unselected = Colors.Black;
-            player1 = Colors.Green;
-            player2 = Colors.Red;
+            player1 = Colors.DarkGreen;
+            player2 = Colors.DarkRed;
             combined = player1 - player2;
 
 			unselectedPair = new ColorPair(unselected.ReadableColor(), unselected);
@@ -43,12 +45,12 @@ namespace Tic_Tac_Toe.Games.Objects
 			combinedPair = new ColorPair(combined.ReadableColor(), combined);
 		}
 
-        public char Value() => value;
-        public bool IsEmpty() => empty;
+        public char Value => value;
+        public bool IsEmpty => empty;
 
         public bool MakeMove(char player)
         {
-            if (IsEmpty())
+            if (IsEmpty)
             {
                 value = player;
                 empty = false;
@@ -63,7 +65,8 @@ namespace Tic_Tac_Toe.Games.Objects
             else if (player1Cursor == CellPosition) player1Pair.UseColor();
             else if (player2Cursor == CellPosition) player2Pair.UseColor();
             else unselectedPair.UseColor();
-            Console.SetCursorPosition((int)CellPosition.X, (int)CellPosition.Y);
+            ConsolePosition.CursorTo();
+            Console.Write(Value.ToString());
         }
 
     }
