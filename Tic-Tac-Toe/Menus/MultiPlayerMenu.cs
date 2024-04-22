@@ -8,7 +8,7 @@ namespace Tic_Tac_Toe.Menus
 	{
 		private static readonly List<Option> _options = new List<Option>
 		{
-			new ("Local Multiplayer", () => new TTT_Game(new HumanPlayer(), new HumanPlayer(false))),
+			new ("Local Multiplayer", () => new Game.Game(new HumanPlayer(), new HumanPlayer(false))),
 			new ("Online Multiplayer", () => OnlinePlayMenu.Invoke())
 		};
 		private static ConsoleMenu _menu = new("Multiplayer", _options);
