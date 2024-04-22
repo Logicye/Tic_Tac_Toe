@@ -1,23 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleGameFramework.Objects.Vectors;
+using Tic_Tac_Toe.Game.Players.Bots;
 
-namespace Tic_Tac_Toe.Games.PlayerObjects
+namespace Tic_Tac_Toe.Game.Players
 {
-	internal class ComputerPlayer : IPlayer
+	public class ComputerPlayer : IPlayer
 	{
+		private IBot _bot;
 		public char PlayerCharacter { get; }
 
-		public bool ActivePlayer { get; set; }
+		public bool ActivePlayer { get; private set; }
 
-		public Point CursorPosiiton { get; set; }
+		public Vector2 CursorPositon { get; private set; }
 
-		public void PlayerControl()
+		public ComputerPlayer(int botDifficulty, bool player1 = false)
 		{
-			throw new NotImplementedException();
+			if (player1)
+			{
+				PlayerCharacter = 'X';
+				ActivePlayer = true;
+			}
+			else
+			{
+				PlayerCharacter = 'O';
+				ActivePlayer = false;
+			}
+			switch (botDifficulty)
+			{
+				case 3:		_bot = new AiBot();		break;
+				case 2:		_bot = new HardBot();	break;
+				case 1:		_bot = new MediumBot(); break;
+				default:	_bot = new EasyBot();	break;
+			}
+			CursorPositon = new Vector2(0, 0);
+			_bot.RegisterInput(this);
+		}
+
+		public void MakeMove()
+		{
+			IPlayer.CallUpdate();
+		}
+
+		public void MoveDown()
+		{
+			CursorPositon += Vector2.Down;
+			IPlayer.CallUpdate();
+		}
+
+		public void MoveLeft()
+		{
+			CursorPositon += Vector2.Left;
+			IPlayer.CallUpdate();
+		}
+
+		public void MoveRight()
+		{
+			CursorPositon += Vector2.Right;
+			IPlayer.CallUpdate();
+		}
+
+		public void MoveUp()
+		{
+			CursorPositon += Vector2.Up;
+			IPlayer.CallUpdate();
 		}
 	}
 }
