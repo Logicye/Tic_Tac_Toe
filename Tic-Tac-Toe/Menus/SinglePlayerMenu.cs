@@ -1,6 +1,6 @@
 ﻿using ConsoleGameFramework.Objects.Menu;
-using Tic_Tac_Toe.Game;
 using Tic_Tac_Toe.Game.Players;
+using Tic_Tac_Toe.Game;
 
 namespace Tic_Tac_Toe.Menus
 {
@@ -8,10 +8,10 @@ namespace Tic_Tac_Toe.Menus
 	{
 		private static readonly List<Option> _options = new List<Option> 
 		{
-			new ("Easy", () => new Game.Game(new HumanPlayer(), new ComputerPlayer(0))),
-			new ("Medium", () => new Game.Game(new HumanPlayer(), new ComputerPlayer(1))),
-			new ("Hard", () => new Game.Game(new HumanPlayer(), new ComputerPlayer(2))),
-			new ("Experimental AI", () => new Game.Game(new HumanPlayer(), new ComputerPlayer(3)))
+			new ("Easy", () => new StandardGame(new HumanPlayer(), new ComputerPlayer(0))),
+			new ("Medium", () => new StandardGame(new HumanPlayer(), new ComputerPlayer(1))),
+			new ("Hard", () => new StandardGame(new HumanPlayer(), new ComputerPlayer(2))),
+			new ("Experimental AI", () => new StandardGame(new HumanPlayer(), new ComputerPlayer(3)))
 		};
 		private static ConsoleMenu _menu = new("Singeplayer", _options);
 
