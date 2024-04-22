@@ -30,15 +30,15 @@ namespace Tic_Tac_Toe.Game
 
 		public void Register()
 		{
-			IPlayer.UpdateCall += Update;
+			IPlayer.UpdateCall += OnUpdate;
 		}
 
 		public void Unregister()
 		{
-			IPlayer.UpdateCall -= Update;
+			IPlayer.UpdateCall -= OnUpdate;
 		}
 
-		public void Update()
+		public void OnUpdate()
 		{
 			_board.Update(_state, _player1, _player2);
 		}
