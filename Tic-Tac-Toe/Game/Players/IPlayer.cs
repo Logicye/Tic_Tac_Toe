@@ -1,11 +1,10 @@
 ﻿using ConsoleGameFramework.Objects.Vectors;
+using ConsoleGameFramework.Objects;
 
 namespace Tic_Tac_Toe.Game.Players
 {
-    internal interface IPlayer
+    internal interface IPlayer : IUpdateEventCall
     {
-		public delegate void UpdateEvent();
-		public static event UpdateEvent? UpdateCall;
 		public char PlayerCharacter {  get; }
         public bool ActivePlayer { get; }
         public Vector2 CursorPositon { get; }
@@ -14,11 +13,5 @@ namespace Tic_Tac_Toe.Game.Players
         public void MoveUp();
         public void MoveDown();
         public void MakeMove();
-		public static void CallUpdate()
-		{
-			IPlayer.UpdateCall?.Invoke();
-		}
-
-
 	}
 }
