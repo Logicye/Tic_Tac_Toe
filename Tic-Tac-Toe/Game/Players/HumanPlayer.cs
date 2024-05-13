@@ -1,5 +1,4 @@
 ﻿using ConsoleGameFramework.Input.ReadKey;
-using ConsoleGameFramework.Objects.Menu;
 using ConsoleGameFramework.Objects.Vectors;
 
 namespace Tic_Tac_Toe.Game.Players
@@ -24,7 +23,7 @@ namespace Tic_Tac_Toe.Game.Players
 				PlayerCharacter = 'O';
 				ActivePlayer = false;
             }
-			CursorPositon = new Vector2 (1,1);
+			CursorPositon = Vector2.One;
 			Register();
         }
 

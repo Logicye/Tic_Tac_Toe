@@ -31,7 +31,7 @@ namespace Tic_Tac_Toe.Game.Players
 				case 1:		_bot = new MediumBot(); break;
 				default:	_bot = new EasyBot();	break;
 			}
-			CursorPositon = new Vector2(0, 0);
+			CursorPositon = Vector2.One;
 			_bot.RegisterInput(this);
 		}
 
