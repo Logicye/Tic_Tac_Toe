@@ -1,6 +1,6 @@
 ﻿using ConsoleGameFramework.Graphics.StandardColorLibrary;
 using ConsoleGameFramework.Objects;
-using ConsoleGameFramework.Objects.Menu;
+using ConsoleGameFramework.Objects.Assets.Menu;
 
 namespace Tic_Tac_Toe.Game.Objects
 {
@@ -22,7 +22,7 @@ namespace Tic_Tac_Toe.Game.Objects
 			_frames = GenerateFrame();
 		}
 
-		public Header InitHeader(int start, int end, int row) => new Header(start, end + CellPadding * 2 + 2, row);
+		public Header InitHeader => new Header(0, Width, 2);
 
 		public void Draw()
 		{
@@ -50,7 +50,7 @@ namespace Tic_Tac_Toe.Game.Objects
 			}
 		}
 
-		public List<string> GenerateFrame()
+		public List<string> GenerateFrame(bool headerless = false)
 		{
 			var frames = new List<string>();
 
@@ -88,10 +88,8 @@ namespace Tic_Tac_Toe.Game.Objects
 			frames.Add(cellDivider);
 			for(int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < Math.Floor((decimal)CellPadding * 2 / 3 + 1); j++)
-				{
-					frames.Add(vertCells);
-				}
+				if (CellPadding % 2 == 0) for (int j = 0; j < CellPadding + 1; j++) frames.Add(vertCells);
+				else for (int j = 0; j < CellPadding; j++) frames.Add(vertCells);
 				frames.Add(cellDivider);
 			}
 			return frames;

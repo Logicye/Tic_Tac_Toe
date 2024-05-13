@@ -24,20 +24,22 @@ namespace Tic_Tac_Toe.Game.Objects
 
 		public Vector2 CellPosition { get; }
         public Vector2 ConsolePosition { get; }
-        private bool empty;
-        private char value;
+        private bool _empty;
+        private char _value;
+        private int _padding;
 
-        public Cell(int consoleX, int consoleY, int x, int y)
+        public Cell(int consoleX, int consoleY, int x, int y, int padding)
         {
-            empty = true;
-            value = ' ';
+            _empty = true;
+            _value = ' ';
+            _padding = padding;
             ConsolePosition = new Vector2(consoleX, consoleY);
             CellPosition = new Vector2(x, y);
 
             unselected = Colors.Black;
-            player1 = Colors.DarkGreen;
+            player1 = Colors.DarkBlue;
             player2 = Colors.DarkRed;
-            combined = player1 - player2;
+            combined = player1 + player2;
 
 			unselectedPair = new ColorPair(unselected.ReadableColor(), unselected);
 			player1Pair = new ColorPair(player1.ReadableColor(), player1);
@@ -45,15 +47,15 @@ namespace Tic_Tac_Toe.Game.Objects
 			combinedPair = new ColorPair(combined.ReadableColor(), combined);
 		}
 
-        public char Value => value;
-        public bool IsEmpty => empty;
+        public char Value => _value;
+        public bool IsEmpty => _empty;
 
         public bool MakeMove(char player)
         {
             if (IsEmpty)
             {
-                value = player;
-                empty = false;
+                _value = player;
+                _empty = false;
                 return true;
             }
             return false;
@@ -65,9 +67,22 @@ namespace Tic_Tac_Toe.Game.Objects
             else if (player1Cursor == CellPosition) player1Pair.UseColor();
             else if (player2Cursor == CellPosition) player2Pair.UseColor();
             else unselectedPair.UseColor();
+            /*
+            if (_padding == 1)
+            {
+
+            }
+            else if (_padding == 2)
+            {
+
+            }
+            else
+            {
+
+            }
+            */
             ConsolePosition.CursorTo();
             Console.Write(Value.ToString());
         }
-
     }
 }
