@@ -14,7 +14,7 @@ namespace Tic_Tac_Toe.Game.Objects
         {
             GameBoard = new ();
             _frame = new BoardFrame(Header.MaxLength);
-            _header = _frame.InitHeader(0, Header.MaxLength, 2);
+            _header = _frame.InitHeader;
         }
 
         public void Initialize()
@@ -34,21 +34,20 @@ namespace Tic_Tac_Toe.Game.Objects
         private void SetCellPositions()
         {
             int headerOffset    = 5;
-            //int rowOffset       = 0;
-            //int colOffset       = 0;
+            int pad = _frame.CellPadding;
 
             //Row 1 Setters
-            GameBoard.Add(new Cell(_frame.CellPadding + 1,     _frame.CellPadding / 2 + headerOffset,   0, 0));
-			GameBoard.Add(new Cell(_frame.CellPadding * 3 + 3, _frame.CellPadding / 2 + headerOffset,   1, 0));
-			GameBoard.Add(new Cell(_frame.CellPadding * 5 + 5, _frame.CellPadding / 2 + headerOffset,   2, 0));
+            GameBoard.Add(new Cell(pad + 1,     pad / 2 + headerOffset,           0, 0, pad));
+			GameBoard.Add(new Cell(pad * 3 + 3, pad / 2 + headerOffset,           1, 0, pad));
+			GameBoard.Add(new Cell(pad * 5 + 5, pad / 2 + headerOffset,           2, 0, pad));
             //Row 2 Setters
- 			GameBoard.Add(new Cell(_frame.CellPadding + 1,     _frame.CellPadding / 2 * 3 + headerOffset + 2,   0, 1));
-			GameBoard.Add(new Cell(_frame.CellPadding * 3 + 3, _frame.CellPadding / 2 * 3 + headerOffset + 2,   1, 1));
-			GameBoard.Add(new Cell(_frame.CellPadding * 5 + 5, _frame.CellPadding / 2 * 3 + headerOffset + 2,   2, 1));
+ 			GameBoard.Add(new Cell(pad + 1,     pad / 2 * 3 + headerOffset + 2,   0, 1, pad));
+			GameBoard.Add(new Cell(pad * 3 + 3, pad / 2 * 3 + headerOffset + 2,   1, 1, pad));
+			GameBoard.Add(new Cell(pad * 5 + 5, pad / 2 * 3 + headerOffset + 2,   2, 1, pad));
             //Row 3 Setters
- 			GameBoard.Add(new Cell(_frame.CellPadding + 1,     _frame.CellPadding / 2 * 5 + headerOffset + 4,   0, 2));
-			GameBoard.Add(new Cell(_frame.CellPadding * 3 + 3, _frame.CellPadding / 2 * 5 + headerOffset + 4,   1, 2));
-			GameBoard.Add(new Cell(_frame.CellPadding * 5 + 5, _frame.CellPadding / 2 * 5 + headerOffset + 4,   2, 2));
+ 			GameBoard.Add(new Cell(pad + 1,     pad / 2 * 5 + headerOffset + 4,   0, 2, pad));
+			GameBoard.Add(new Cell(pad * 3 + 3, pad / 2 * 5 + headerOffset + 4,   1, 2, pad));
+			GameBoard.Add(new Cell(pad * 5 + 5, pad / 2 * 5 + headerOffset + 4,   2, 2, pad));
 		}
         
 		private void FillBuffer()
