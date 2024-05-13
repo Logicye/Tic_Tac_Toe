@@ -16,7 +16,7 @@ namespace Tic_Tac_Toe.Game.Objects
 		{
 			colorPair.UseColor();
 			string temp = _headers[(int)header];
-			_center.WriteCenteredHorizontal(temp);
+			_center.WriteHorizontal(temp);
 			ColorPair.Default.UseColor();
 		}
 
