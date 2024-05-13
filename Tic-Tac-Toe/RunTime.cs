@@ -1,17 +1,14 @@
 ﻿using ConsoleGameFramework.Input.ReadKey;
-using Tic_Tac_Toe.Game.Players;
-using Tic_Tac_Toe.Game;
-using Tic_Tac_Toe.Menus;
-using ConsoleGameFramework.Objects;
+using ConsoleGameFramework.Objects.Assets.Menu;
 
-namespace Tic_Tac_Toe
+namespace Tic_Tac_Toe;
+
+class RunTime
 {
-    class RunTime
+    static void Main()
     {
-        static void Main()
-        {
-            ReadKeyStaticAsync.Start();
-            MainMenu.Invoke();   
-		}
-    }
-}  
+		IMenuType menuType = new FramedMenuType();
+        ReadKeyStaticAsync.Start();
+        MenuHandler GameMenu = new(Menus.GetRoot, menuType);
+	}
+}
