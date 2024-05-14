@@ -4,25 +4,25 @@ using ConsoleGameFramework.Objects.Assets.Menu;
 
 namespace Tic_Tac_Toe.Game.Objects
 {
-    internal readonly struct BoardFrame : IFrame
+    internal readonly struct Frame : IFrame
 	{
 		private readonly FrameProperties _properties;
 		private readonly List<string> _frames;
 		public readonly int CellPadding { get; }
-		public BoardFrame(int headerMaxLength, FrameProperties frameProperties) 
+		public Frame(int headerMaxLength, FrameProperties frameProperties) 
 		{
 			_properties = frameProperties;
 			CellPadding = GetCellPadding(headerMaxLength);
 			_frames = GenerateFrame();
 		}
-		public BoardFrame(int headerMaxLength)
+		public Frame(int headerMaxLength)
 		{
 			_properties = new();
 			CellPadding = GetCellPadding(headerMaxLength);
 			_frames = GenerateFrame();
 		}
 
-		public Header InitHeader => new Header(0, Width, 2);
+		public Header InitHeader => new Header(0, Width - 1, 2);
 
 		public void Draw()
 		{
