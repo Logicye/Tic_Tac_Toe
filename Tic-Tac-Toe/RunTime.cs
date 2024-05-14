@@ -5,7 +5,7 @@ namespace Tic_Tac_Toe;
 
 class RunTime
 {
-	public static MenuHandler GameMenu;
+	public static MenuHandler? GameMenu;
 
 	static void Main()
     {
