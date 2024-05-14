@@ -5,10 +5,11 @@ namespace Tic_Tac_Toe;
 
 class RunTime
 {
-    static void Main()
+	public static MenuHandler GameMenu;
+
+	static void Main()
     {
-		IMenuType menuType = new FramedMenuType();
+		GameMenu = new(Menus.GetRoot, new FramedMenuType());
         ReadKeyStaticAsync.Start();
-        MenuHandler GameMenu = new(Menus.GetRoot, menuType);
 	}
 }
