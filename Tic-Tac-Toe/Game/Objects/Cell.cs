@@ -24,22 +24,24 @@ namespace Tic_Tac_Toe.Game.Objects
 
 		public Vector2 CellPosition { get; }
         public Vector2 ConsolePosition { get; }
-        private bool _empty;
         private char _value;
         private int _padding;
 
-        public Cell(int consoleX, int consoleY, int x, int y, int padding)
+        public Cell(int x, int y, int padding)
         {
-            _empty = true;
             _value = ' ';
             _padding = padding;
-            ConsolePosition = new Vector2(consoleX, consoleY);
-            CellPosition = new Vector2(x, y);
+            ConsolePosition = new(_padding * (2 * x + 1) + (2 * x + 1), _padding / 2 * (2 * y + 1) + 5 + (2 * y));
+			CellPosition = new Vector2(x, y);
+			SetColors();
+        }
 
-            unselected = Colors.Black;
-            player1 = Colors.DarkBlue;
-            player2 = Colors.DarkRed;
-            combined = player1 + player2;
+        public void SetColors()
+        {
+			unselected = Colors.Black;
+			player1 = Colors.DarkBlue;
+			player2 = Colors.DarkRed;
+			combined = player1 + player2;
 
 			unselectedPair = new ColorPair(unselected.ReadableColor(), unselected);
 			player1Pair = new ColorPair(player1.ReadableColor(), player1);
@@ -48,14 +50,13 @@ namespace Tic_Tac_Toe.Game.Objects
 		}
 
         public char Value => _value;
-        public bool IsEmpty => _empty;
+        public bool IsEmpty => _value == ' ' ? true : false;
 
         public bool MakeMove(char player)
         {
             if (IsEmpty)
             {
                 _value = player;
-                _empty = false;
                 return true;
             }
             return false;
@@ -67,22 +68,16 @@ namespace Tic_Tac_Toe.Game.Objects
             else if (player1Cursor == CellPosition) player1Pair.UseColor();
             else if (player2Cursor == CellPosition) player2Pair.UseColor();
             else unselectedPair.UseColor();
-            /*
-            if (_padding == 1)
+            
+            for(int x = -_padding; x < _padding + 1; x++)
             {
-
+                for(int y = -_padding/2; y < _padding/2 + 1; y++)
+                {
+                    Console.SetCursorPosition((int)ConsolePosition.X + x, (int)ConsolePosition.Y + y);
+                    if (x == 0 && y == 0) Console.Write(_value.ToString());
+                    else Console.Write(" ");
+                }
             }
-            else if (_padding == 2)
-            {
-
-            }
-            else
-            {
-
-            }
-            */
-            ConsolePosition.CursorTo();
-            Console.Write(Value.ToString());
         }
     }
 }
